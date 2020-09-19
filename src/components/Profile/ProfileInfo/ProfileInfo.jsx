@@ -1,12 +1,11 @@
 import React from "react"
 import css from './ProfileInfo.module.scss'
-import avatar from '../../../user_icon.png'
 
 const ProfileInfo = (props) => {
     return(
         <div className={css.profileInfo}>
             <div className={css.avatar}>
-                <img src={avatar} alt="Avatar"/>
+                <img src='https://www.iconninja.com/files/980/515/831/warrior-ninja-avatar-samurai-icon.svg' alt="Avatar"/>
             </div>
             <ul className={css.info__list}>
                 <li>

@@ -1,7 +1,7 @@
 import React from 'react'
-import Posts from './Posts/Posts'
 import css from './Profile.module.scss'
 import ProfileInfo from './ProfileInfo/ProfileInfo'
+import PostsContainer from "./Posts/PostsContainer";
 
 const Profile = (props) => {
     return(
@@ -13,7 +13,7 @@ const Profile = (props) => {
                          education='MIT'
                          site='https://github.com/youhymuk'
             />
-            <Posts/>
+            <PostsContainer posts={props.posts}/>
         </div>
     )
 }

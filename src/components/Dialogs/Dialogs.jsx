@@ -1,5 +1,5 @@
 import React from 'react'
-import css from './Dialogs.module.css'
+import css from './Dialogs.module.scss'
 import {NavLink} from "react-router-dom";
 import Message from "./Message/Message";
 
@@ -34,11 +34,11 @@ const Dialogs = (props) => {
                 </li>
             </ul>
             <ul className={css.messages}>
-                <Message message='Message1' />
-                <Message message='Message2' />
-                <Message message='Message3' />
-                <Message message='Message4' />
-                <Message message='Message5' />
+                {
+                    props.messages.map(
+                        message => <Message messageBody={message.messageBody}/>
+                    )
+                }
             </ul>
         </div>
     )

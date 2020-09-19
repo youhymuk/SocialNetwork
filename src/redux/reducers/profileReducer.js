@@ -1,29 +1,43 @@
 const ADD_POST = 'ADD_POST'
+const UPDATE_NEW_POST_BODY = 'UPDATE_NEW_POST_BODY'
 
 const initialState = {
     posts: [
         {
-            id: 1,
+            likesCount: 1,
             content: 'Heeeey!'
         },
         {
-            id: 2,
+            likesCount: 2,
             content: 'How are you?'
         },
         {
-            id: 3,
+            likesCount: 3,
             content: `What's up!`
         }
     ],
     newPostBody: ''
 }
 
-const ProfileReducer = (state = initialState, action) => {
+const profileReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_POST:
-            return state
+            const newPost = {likesCount: 0, content: state.newPostBody}
+            return {
+                ...state,
+                newPostBody: '',
+                posts: [...state.posts, newPost]
+            }
+        case UPDATE_NEW_POST_BODY:
+            return {
+                ...state,
+                newPostBody: action.body
+            }
         default:
             return state
     }
 }
-export default ProfileReducer
+export default profileReducer
+
+export const updateNewPostBodyAC = (body) => ({type: UPDATE_NEW_POST_BODY, body})
+export const addPostAC = () => ({type: ADD_POST})
