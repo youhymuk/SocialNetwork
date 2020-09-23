@@ -1,46 +1,14 @@
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
+const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT'
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 
 const initialState = {
-  users: [
-    {
-      id: 1,
-      followed: false,
-      avatar: 'https://www.iconninja.com/files/980/515/831/warrior-ninja-avatar-samurai-icon.svg',
-      firstName: 'Viktor',
-      secondName: 'Petrov',
-      status: `I'm looking for a job now`,
-      address: {
-        country: 'Ukraine',
-        city: 'Kyiv'
-      }
-    },
-    {
-      id: 2,
-      followed: false,
-      avatar: 'https://www.iconninja.com/files/980/515/831/warrior-ninja-avatar-samurai-icon.svg',
-      firstName: 'Max',
-      secondName: 'Ivanov',
-      status: `I'm looking for a job now`,
-      address: {
-        country: 'Ukraine',
-        city: 'Kyiv'
-      }
-    },
-    {
-      id: 3,
-      followed: false,
-      avatar: 'https://www.iconninja.com/files/980/515/831/warrior-ninja-avatar-samurai-icon.svg',
-      firstName: 'Sasha',
-      secondName: 'Fedorov',
-      status: `I'm looking for a job now`,
-      address: {
-        country: 'Ukraine',
-        city: 'Kyiv'
-      }
-    }
-  ]
+  users: [],
+  totalUsersCount: 0,
+  currentPage: 1,
+  pageSize: 10
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -74,6 +42,16 @@ const usersReducer = (state = initialState, action) => {
         ...state,
         users: action.users
       }
+    case SET_TOTAL_USERS_COUNT:
+      return {
+        ...state,
+        totalUsersCount: action.count
+      }
+    case SET_CURRENT_PAGE:
+      return {
+        ...state,
+        currentPage: action.page
+      }
     default:
       return state
   }
@@ -83,3 +61,5 @@ export default usersReducer
 export const followAC = (userId) => ({type: FOLLOW, userId})
 export const unfollowAC = (userId) => ({type: UNFOLLOW, userId})
 export const setUsersAC = (users) => ({type: SET_USERS, users})
+export const setTotalUsersCountAC = (count) => ({type: SET_TOTAL_USERS_COUNT, count})
+export const setCurrentPageAC = (page) => ({type: SET_CURRENT_PAGE, page})
