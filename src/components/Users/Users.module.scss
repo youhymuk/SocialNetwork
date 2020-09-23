@@ -5,3 +5,15 @@
     max-width: 100%;
   }
 }
+.pagination {
+  li {
+    display: inline;
+    cursor: pointer;
+    &:not(:last-child) {
+      margin-right: 5px;
+    }
+  }
+}
+.active_page {
+  font-weight: bold;
+}
