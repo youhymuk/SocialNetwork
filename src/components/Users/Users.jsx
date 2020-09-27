@@ -1,23 +1,28 @@
 import React, {useEffect} from "react"
 import css from './Users.module.scss'
 import * as axios from 'axios'
+import Loader from "../common/Loader/Loader";
 
 const Users = (props) => {
   useEffect(
     () => {
+      props.toggleIsFetching(true)
       axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${props.currentPage}&count=${props.pageSize}`)
         .then(response => {
           props.setUsers(response.data.items)
           props.setTotalUsersCount(response.data.totalCount)
         })
+      props.toggleIsFetching(false)
     }
   )
   const onPageChange = (p) => {
+    props.toggleIsFetching(true)
     axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${props.pageSize}`)
       .then(response => {
         props.setUsers(response.data.items)
       })
     props.setCurrentPage(p)
+    props.toggleIsFetching(false)
   }
   const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
   const pages = []
@@ -30,7 +35,7 @@ const Users = (props) => {
       <ul className={css.pagination}>
         {pages.map(p => {
            return (
-             <li className={props.currentPage === p && css.active_page}
+             <li className={props.currentPage === p ? css.active_page : null}
                  onClick={() => {onPageChange(p)}}>
                {p}
              </li>
@@ -38,6 +43,7 @@ const Users = (props) => {
           }
         )}
       </ul>
+      {props.isFetching ? <Loader/> : null}
       <ul>
         {props.users.map(
           user => <li className={css.user} key={user.id}>
