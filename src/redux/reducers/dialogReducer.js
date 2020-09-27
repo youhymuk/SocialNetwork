@@ -45,7 +45,7 @@ const dialogReducer = (state = initialState, action) => {
     }
 }
 
-export const addMessageAC = () => ({type: ADD_MESSAGE})
-export const updateNewMessageBodyAC = (body) => ({type: UPDATE_NEW_MESSAGE_BODY, body})
+export const addMessage = () => ({type: ADD_MESSAGE})
+export const updateNewMessageBody = (body) => ({type: UPDATE_NEW_MESSAGE_BODY, body})
 
 export default dialogReducer

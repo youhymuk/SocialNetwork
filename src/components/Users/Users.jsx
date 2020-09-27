@@ -4,17 +4,17 @@ import * as axios from 'axios'
 import Loader from "../common/Loader/Loader";
 
 const Users = (props) => {
-  useEffect(
-    () => {
-      props.toggleIsFetching(true)
-      axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${props.currentPage}&count=${props.pageSize}`)
-        .then(response => {
-          props.setUsers(response.data.items)
-          props.setTotalUsersCount(response.data.totalCount)
-        })
-      props.toggleIsFetching(false)
-    }
-  )
+  // useEffect(
+  //   () => {
+  //     props.toggleIsFetching(true)
+  //     axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${props.currentPage}&count=${props.pageSize}`)
+  //       .then(response => {
+  //         props.setUsers(response.data.items)
+  //         props.setTotalUsersCount(response.data.totalCount)
+  //       })
+  //     props.toggleIsFetching(false)
+  //   }
+  // )
   const onPageChange = (p) => {
     props.toggleIsFetching(true)
     axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${props.pageSize}`)

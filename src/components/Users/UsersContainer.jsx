@@ -1,11 +1,12 @@
 import Users from "./Users";
 import {connect} from "react-redux";
 import {
-  followAC,
-  setCurrentPageAC,
-  setTotalUsersCountAC,
-  setUsersAC, toggleIsFetchingAC,
-  unfollowAC
+  follow,
+  setCurrentPage,
+  setTotalUsersCount,
+  setUsers,
+  toggleIsFetching,
+  unfollow
 } from "../../redux/reducers/usersReducer";
 
 const mapStateToProps = (state) => {
@@ -17,27 +18,12 @@ const mapStateToProps = (state) => {
     isFetching: state.users.isFetching
   }
 }
-const mapDispatchToProps = (dispatch) => {
-  return {
-    follow: (userId) => {
-      dispatch(followAC(userId))
-    },
-    unfollow: (userId) => {
-      dispatch(unfollowAC(userId))
-    },
-    setUsers: (users) => {
-      dispatch(setUsersAC(users))
-    },
-    setTotalUsersCount: (count) => {
-      dispatch(setTotalUsersCountAC(count))
-    },
-    setCurrentPage: (page) => {
-      dispatch(setCurrentPageAC(page))
-    },
-    toggleIsFetching: (value) => {
-      dispatch(toggleIsFetchingAC(value))
-    }
-  }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Users)
+export default connect(mapStateToProps, {
+  follow,
+  unfollow,
+  setUsers,
+  setTotalUsersCount,
+  setCurrentPage,
+  toggleIsFetching
+})(Users)
