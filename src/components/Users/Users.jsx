@@ -10,7 +10,6 @@ const Users = (props) => {
   for (let i = 1; i <= pagesCount; i++) {
     pages.push(i)
   }
-
   return (
     <div>
       <ul className={css.pagination}>
@@ -26,7 +25,7 @@ const Users = (props) => {
           }
         )}
       </ul>
-      {props.isFetching ? <Loader/> : null}
+      {!props.users ? <Loader/> : null}
       <ul>
         {props.users.map(
           user => <li className={css.user} key={user.id}>

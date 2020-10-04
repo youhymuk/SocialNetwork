@@ -1,6 +1,10 @@
 .aside {
+  position: fixed;
+  left: 0;
+  top: 60px;
+  width: 300px;
+  height: 100vh;
   grid-area: nav;
-  border-top-right-radius: 10px;
   background: linear-gradient(45deg, rgba(119,73,234,1) 0%, rgba(93,126,246,1) 100%);
 }
 ul {

@@ -6,13 +6,11 @@
   "nav content";
   grid-template-rows: 60px 2fr;
   grid-template-columns: 300px 1fr;
-  grid-gap: 1vw;
   min-height: 100vh;
   color: #fff;
 }
 .content {
   position: relative;
   grid-area: content;
-  border-top-left-radius: 10px;
   background: linear-gradient(-90deg, rgba(119,73,234,1) 0%, rgba(93,126,246,1) 100%);
 }
