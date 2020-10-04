@@ -2,6 +2,8 @@ import React, {useEffect} from 'react'
 import Users from "./Users"
 import {connect} from "react-redux"
 import {follow, getUsers, setCurrentPage, unfollow} from "../../redux/reducers/usersReducer";
+import {compose} from "redux";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 const UsersContainer = (props) => {
   useEffect(
@@ -39,5 +41,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, {
-  follow, unfollow, setCurrentPage, getUsers})(UsersContainer)
+export default compose(
+  connect(mapStateToProps, {follow, unfollow, setCurrentPage, getUsers}),
+  withAuthRedirect
+)(UsersContainer)

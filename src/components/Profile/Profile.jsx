@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import css from './Profile.module.scss'
 import ProfileInfo from './ProfileInfo/ProfileInfo'
 import Posts from "./Posts/Posts";
