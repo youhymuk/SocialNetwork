@@ -5,7 +5,7 @@ import avatar from '../../../user_icon.png'
 const PostInput = (props) => {
     return(
         <form onSubmit={(e) => e.preventDefault()}>
-            <textarea className={css.postInput} onChange={props.updateNewPostBody}/>
+            <textarea className={css.postInput} value={props.newPostBody} onChange={(e) => props.updateNewPostBody(e.target.value)}/>
             <button className={css.btn} onClick={props.addPost} type='button'>
                 Send
             </button>
@@ -30,7 +30,7 @@ const Posts = (props) => {
     return(
         <div className={css.posts}>
             <h2>My posts</h2>
-            <PostInput updateNewPostBody={props.updateNewPostBody}/>
+            <PostInput updateNewPostBody={props.updateNewPostBody} addPost={props.addPost} newPostBody={props.newPostBody} />
             <ul className={css.postsList}>
                 {props.posts.map((post) => <Post content={post.content}/>)}
             </ul>

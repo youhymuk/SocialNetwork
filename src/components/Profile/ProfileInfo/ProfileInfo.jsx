@@ -1,6 +1,7 @@
 import React from "react"
 import css from './ProfileInfo.module.scss'
-import Loader from "../../common/Loader/Loader";
+import Loader from "../../common/Loader/Loader"
+import {ProfileStatus} from "./profileStatus";
 
 const ProfileInfo = (props) => {
   if (!props.profile) {
@@ -8,12 +9,18 @@ const ProfileInfo = (props) => {
   }
   return (
     <div className={css.profileInfo}>
-      <div className={css.avatar}>
-        <img src={
-          props.profile.photos.large
-            ? props.profile.photos.large
-            : 'https://www.iconninja.com/files/980/515/831/warrior-ninja-avatar-samurai-icon.svg'
-        } alt="Avatar"/>
+      <div>
+        <div className={css.avatar}>
+          <img src={
+            props.profile.photos.large
+              ? props.profile.photos.large
+              : 'https://www.iconninja.com/files/980/515/831/warrior-ninja-avatar-samurai-icon.svg'
+          } alt="Avatar"/>
+        </div>
+        <ProfileStatus status={props.status}
+                       updateStatus={props.updateStatus}
+
+        />
       </div>
       <ul className={css.info__list}>
         <li>

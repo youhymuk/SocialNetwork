@@ -16,6 +16,7 @@ const initialState = {
 }
 
 const usersReducer = (state = initialState, action) => {
+  // debugger
   switch (action.type) {
     case FOLLOW:
       return {
@@ -87,7 +88,7 @@ export const follow = (id) => (dispatch) => {
   usersAPI.follow(id)
     .then(data => {
       if (data.resultCode === 0) {
-        followSuccess(id)
+        dispatch(followSuccess(id))
       }
     })
 }
@@ -95,7 +96,7 @@ export const unfollow = (id) => (dispatch) => {
   usersAPI.unfollow(id)
     .then(data => {
       if (data.resultCode === 0) {
-        unfollowSuccess(id)
+        dispatch(unfollowSuccess(id))
       }
     })
 }
