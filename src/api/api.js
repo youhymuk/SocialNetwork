@@ -26,6 +26,9 @@ export const authAPI = {
     logIn(credentials) {
         return instance.post(`auth/login`, credentials).then((response) => response.data);
     },
+    logOut() {
+        return instance.delete(`auth/login`).then((response) => response.data);
+    },
 };
 export const profileAPI = {
     getUserProfile(id) {
