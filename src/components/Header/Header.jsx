@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import css from './Header.module.scss';
 import logo from '../../logo.svg';
 import { connect } from 'react-redux';
-import { getAuthUserData, logOut } from '../../redux/reducers/authReducer';
+import { getAuthUserData, logOut } from '../../redux/thunks/';
 
 const Header = ({ isAuthorized, login, getAuthUserData, logOut }) => {
     useEffect(() => {

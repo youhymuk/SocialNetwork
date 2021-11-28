@@ -1,102 +1,57 @@
-import {usersAPI} from "../../api/api";
-
-const FOLLOW = 'FOLLOW'
-const UNFOLLOW = 'UNFOLLOW'
-const SET_USERS = 'SET_USERS'
-const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT'
-const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
-const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
+import { FOLLOW, UNFOLLOW, SET_USERS, SET_TOTAL_USERS_COUNT, SET_CURRENT_PAGE, TOGGLE_IS_FETCHING } from '../constants';
 
 const initialState = {
-  users: [],
-  totalUsersCount: 0,
-  currentPage: 1,
-  pageSize: 10,
-  isFetching: false
-}
+    users: [],
+    totalUsersCount: 0,
+    currentPage: 1,
+    pageSize: 10,
+    isFetching: false,
+};
 
-const usersReducer = (state = initialState, action) => {
-  // debugger
-  switch (action.type) {
-    case FOLLOW:
-      return {
-        ...state,
-        users: state.users.map(
-          user => {
-            if(user.id === action.userId) {
-              return {...user, followed: true}
-            }
-            return user
-          }
-        )
-      }
-    case UNFOLLOW:
-      return {
-        ...state,
-        users: state.users.map(
-          user => {
-            if(user.id === action.userId) {
-              return {...user, followed: false}
-            }
-            return user
-          }
-        )
-      }
-    case SET_USERS:
-      return {
-        ...state,
-        users: action.users
-      }
-    case SET_TOTAL_USERS_COUNT:
-      return {
-        ...state,
-        totalUsersCount: action.count
-      }
-    case SET_CURRENT_PAGE:
-      return {
-        ...state,
-        currentPage: action.page
-      }
-    case TOGGLE_IS_FETCHING:
-      return {
-        ...state,
-        isFetching: action.value
-      }
-    default:
-      return state
-  }
-}
-export default usersReducer
-
-export const followSuccess = (userId) => ({type: FOLLOW, userId})
-export const unfollowSuccess = (userId) => ({type: UNFOLLOW, userId})
-export const setUsers = (users) => ({type: SET_USERS, users})
-export const setTotalUsersCount = (count) => ({type: SET_TOTAL_USERS_COUNT, count})
-export const setCurrentPage = (page) => ({type: SET_CURRENT_PAGE, page})
-export const toggleIsFetching = (value) => ({type: TOGGLE_IS_FETCHING, value})
-
-export const getUsers = (currentPage, pageSize) => (dispatch) => {
-   dispatch(toggleIsFetching(true))
-    usersAPI.getUsers(currentPage, pageSize)
-      .then(data => {
-        dispatch(setUsers(data.items))
-        dispatch(setTotalUsersCount(data.totalCount))
-      })
-    dispatch(toggleIsFetching(false))
-}
-export const follow = (id) => (dispatch) => {
-  usersAPI.follow(id)
-    .then(data => {
-      if (data.resultCode === 0) {
-        dispatch(followSuccess(id))
-      }
-    })
-}
-export const unfollow = (id) => (dispatch) => {
-  usersAPI.unfollow(id)
-    .then(data => {
-      if (data.resultCode === 0) {
-        dispatch(unfollowSuccess(id))
-      }
-    })
-}
+const usersReducer = (state = initialState, { type, payload = {} }) => {
+    switch (type) {
+        case FOLLOW:
+            return {
+                ...state,
+                users: state.users.map((user) => {
+                    if (user.id === payload.userId) {
+                        return { ...user, followed: true };
+                    }
+                    return user;
+                }),
+            };
+        case UNFOLLOW:
+            return {
+                ...state,
+                users: state.users.map((user) => {
+                    if (user.id === payload.userId) {
+                        return { ...user, followed: false };
+                    }
+                    return user;
+                }),
+            };
+        case SET_USERS:
+            return {
+                ...state,
+                users: payload.users,
+            };
+        case SET_TOTAL_USERS_COUNT:
+            return {
+                ...state,
+                totalUsersCount: payload.count,
+            };
+        case SET_CURRENT_PAGE:
+            return {
+                ...state,
+                currentPage: payload.page,
+            };
+        case TOGGLE_IS_FETCHING:
+            return {
+                ...state,
+                isFetching: payload.value,
+            };
+        default:
+            return state;
+    }
+};
+export default usersReducer;

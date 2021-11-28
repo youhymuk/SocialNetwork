@@ -1,56 +1,67 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import Profile from './Profile';
-import {
-  getStatus,
-  getProfile,
-  updateStatus,
-  addPost,
-  updateNewPostBody,
-} from '../../redux/reducers/profileReducer';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import { compose } from 'redux';
+import { connect } from 'react-redux';
+
+import Profile from './Profile';
+import { addPost, updateNewPostBody } from '../../redux/actions';
+import { getProfile, getStatus, updateStatus } from '../../redux/thunks';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 
-const ProfileContainer = (props) => {
-  let userId = props.match.params.userId;
-  if (!userId) {
-    userId = 7351;
-  }
-  useEffect(() => {
-    props.getProfile(userId);
-    props.getStatus(userId);
-  }, []);
-  return (
-    <Profile
-      profile={props.profile}
-      posts={props.posts}
-      newPostBody={props.newPostBody}
-      status={props.status}
-      updateStatus={props.updateStatus}
-      addPost={props.addPost}
-      updateNewPostBody={props.updateNewPostBody}
-    />
-  );
+const ProfileContainer = ({
+    profile,
+    authorizedUserId,
+    isAuthorized,
+    posts,
+    status,
+    newPostBody,
+    updateNewPostBody,
+    updateStatus,
+    getProfile,
+    getStatus,
+    match,
+}) => {
+    let userId = !!match.params.userId ? match.params.userId : isAuthorized ? authorizedUserId : null;
+
+    useEffect(() => {
+        getProfile(userId);
+        getStatus(userId);
+    }, [userId]);
+
+    return !!userId && isAuthorized ? (
+        <Profile
+            profile={profile}
+            posts={posts}
+            newPostBody={newPostBody}
+            status={status}
+            updateStatus={updateStatus}
+            addPost={addPost}
+            updateNewPostBody={updateNewPostBody}
+        />
+    ) : (
+        <Redirect to="/login" />
+    );
 };
 
 const mapStateToProps = (state) => {
-  return {
-    posts: state.profile.posts,
-    newPostBody: state.profile.newPostBody,
-    profile: state.profile.profile,
-    status: state.profile.status,
-  };
+    return {
+        posts: state.profile.posts,
+        newPostBody: state.profile.newPostBody,
+        profile: state.profile.profile,
+        status: state.profile.status,
+        authorizedUserId: state.authorization.id,
+        isAuthorized: state.authorization.isAuthorized,
+    };
 };
 
 export default compose(
-  connect(mapStateToProps, {
-    getProfile,
-    getStatus,
-    updateStatus,
-    addPost,
-    updateNewPostBody,
-  }),
-  withAuthRedirect,
-  withRouter
+    connect(mapStateToProps, {
+        getProfile,
+        getStatus,
+        updateStatus,
+        addPost,
+        updateNewPostBody,
+    }),
+    withAuthRedirect,
+    withRouter,
 )(ProfileContainer);
