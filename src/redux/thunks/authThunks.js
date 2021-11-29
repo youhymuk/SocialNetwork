@@ -2,7 +2,7 @@ import { authAPI } from '../../api/api';
 import { setAuthUserData, setAuthError } from '../actions';
 
 export const getAuthUserData = () => (dispatch) => {
-    authAPI.authMe().then((data) => {
+    return authAPI.authMe().then((data) => {
         if (data.resultCode === 0) {
             const { email, id, login } = data.data;
             dispatch(setAuthUserData(email, id, login, true));

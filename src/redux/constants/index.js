@@ -1,3 +1,4 @@
+export * from './appActionTypes';
 export * from './authActionTypes';
 export * from './dialogsActionTypes';
 export * from './profileActionTypes';
