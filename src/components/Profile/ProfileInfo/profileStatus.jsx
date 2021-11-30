@@ -1,31 +1,38 @@
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 
-export const ProfileStatus = (props) => {
-  const [editMode, setEditMode] = useState(false)
-  const [status, setStatus] = useState(props.status)
+const ProfileStatus = ({status, updateStatus, isOwner}) => {
+    const [editMode, setEditMode] = useState(false)
+    const [value, setValue] = useState(status)
 
-  const activateEditMode = () => {
-    setEditMode(true)
-  }
-  const deActivateEditMode = () => {
-    setEditMode(false)
-    props.updateStatus(status)
-  }
+    useEffect(() => {
+        setValue(status)
+    }, [status])
 
-  return (
-    <>
-      {
-        !editMode
-        ? <span onClick={() => activateEditMode()}>
-            {!props.status ? 'Your status' : props.status}
-      </span>
-        : <input type="text"
-                 value={status}
-                 autoFocus={true}
-                 onBlur={() => deActivateEditMode()}
-                 onChange={(e) => setStatus(e.target.value)}
-          />
-      }
-    </>
-  )
+    const activateEditMode = () => {
+        setEditMode(true)
+    }
+    const deactivateEditMode = () => {
+        setEditMode(false)
+        updateStatus(value)
+    }
+
+    return (
+        <>
+            {
+                editMode
+                    ? <input
+                         type="text"
+                         value={value}
+                         autoFocus={true}
+                         onBlur={deactivateEditMode}
+                         onChange={(e) => setValue(e.target.value)}
+                    />
+                    : <span onDoubleClick={() => isOwner && activateEditMode()}>
+                        {!status ? 'Your status' : status}
+                      </span>
+            }
+        </>
+    )
 }
+
+export default ProfileStatus;

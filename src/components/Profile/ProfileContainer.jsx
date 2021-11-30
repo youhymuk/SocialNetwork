@@ -3,10 +3,12 @@ import { withRouter, Redirect } from 'react-router-dom';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 
-import Profile from './Profile';
 import { addPost, updateNewPostBody } from '../../redux/actions';
 import { getProfile, getStatus, updateStatus } from '../../redux/thunks';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+
+import Profile from './Profile';
+import Loader from "../common/Loader/Loader";
 
 const ProfileContainer = ({
     profile,
@@ -27,6 +29,8 @@ const ProfileContainer = ({
         getProfile(userId);
         getStatus(userId);
     }, [userId]);
+
+    if(!profile) return <Loader/>
 
     return !!userId && isAuthorized ? (
         <Profile
