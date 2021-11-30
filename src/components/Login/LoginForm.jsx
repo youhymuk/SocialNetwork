@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 import { logIn } from '../../redux/thunks/';
+import {selectAuthError} from "../../redux/selectors/authSelectors";
 import LoginSchema from './schemas/LoginSchema';
 
 const initialValues = {
@@ -14,7 +15,7 @@ const initialValues = {
 const LoginForm = () => {
     const dispatch = useDispatch();
 
-    const errorMessage = useSelector(({ authorization }) => authorization.error);
+    const errorMessage = useSelector(selectAuthError);
 
     return (
         <>

@@ -3,6 +3,8 @@ import { Route } from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 
 import {initializeApp} from "./redux/thunks/appThunk";
+import {selectAppIsInitialized} from "./redux/selectors";
+
 import Header from './components/Header/Header';
 import Navbar from './components/NavBar/Navbar';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
@@ -15,7 +17,8 @@ import './App.scss';
 
 const App = (props) => {
     const dispatch = useDispatch();
-    const {isInitialized} = useSelector(({app}) => app)
+
+    const isInitialized = useSelector(selectAppIsInitialized)
 
     useEffect(() => {
         dispatch(initializeApp())
