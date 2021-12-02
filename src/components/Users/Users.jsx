@@ -1,37 +1,23 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 
-import Loader from '../common/Loader/Loader';
+import Pagination from "../common/Pagination/Pagination";
+
 import css from './Users.module.scss';
 
-const Users = ({ totalUsersCount, users, currentPage, pageSize, onPageChange, follow, unfollow }) => {
-    const pagesCount = Math.ceil(totalUsersCount / pageSize);
-    const pages = [];
-
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i);
-    }
+const Users = ({totalUsersCount, users, currentPage, pageSize, onChangePage, follow, unfollow}) => {
 
     return (
-        <div>
-            <ul className={css.pagination}>
-                {pages.map((p) => {
-                    return (
-                        <li
-                            className={currentPage === p ? css.active_page : null}
-                            onClick={() => {
-                                onPageChange(p);
-                            }}
-                            key={p.id}>
-                            {p}
-                        </li>
-                    );
-                })}
-            </ul>
-            {!users ? <Loader /> : null}
-            <ul>
-                {!!users.length &&
-                    users.map((user) => (
+        <>
+            <Pagination
+                totalItemsCount={totalUsersCount}
+                currentPage={currentPage}
+                pageSize={pageSize}
+                onChangePage={onChangePage}
+            />
+            {!!users.length && (
+                <ul>
+                    {users.map((user) => (
                         <li className={css.user} key={user.id}>
                             <div className={css.user_avatar}>
                                 <NavLink to={'/profile/' + user.id}>
@@ -68,8 +54,8 @@ const Users = ({ totalUsersCount, users, currentPage, pageSize, onPageChange, fo
                             </div>
                         </li>
                     ))}
-            </ul>
-        </div>
-    );
+                </ul>)}
+        </>
+    )
 };
 export default Users;

@@ -1,19 +1,22 @@
 import React, { useEffect } from 'react';
 import { compose } from 'redux';
-import { connect } from 'react-redux';
+import {connect, useDispatch} from 'react-redux';
 
 import Users from './Users';
+import Loader from "../common/Loader/Loader";
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { follow, getUsers, unfollow } from '../../redux/thunks';
 import { setCurrentPage } from '../../redux/actions';
 
 const UsersContainer = ({ users, totalUsersCount, isFetching, currentPage, pageSize, getUsers, follow, unfollow }) => {
+    const dispatch = useDispatch();
+
     useEffect(() => {
         getUsers(currentPage, pageSize);
     }, [currentPage, pageSize]);
 
-    const onPageChange = (p) => {
-        getUsers(p, pageSize);
+    const onChangePage = (page) => {
+        dispatch(setCurrentPage(page));
     };
     const followUser = (id) => {
         follow(id);
@@ -22,9 +25,9 @@ const UsersContainer = ({ users, totalUsersCount, isFetching, currentPage, pageS
         unfollow(id);
     };
 
-    return (
+    return users ? (
         <Users
-            onPageChange={onPageChange}
+            onChangePage={onChangePage}
             follow={followUser}
             unfollow={unfollowUser}
             users={users}
@@ -33,7 +36,7 @@ const UsersContainer = ({ users, totalUsersCount, isFetching, currentPage, pageS
             pageSize={pageSize}
             isFetching={isFetching}
         />
-    );
+    ) : (<Loader/>)
 };
 
 const mapStateToProps = (state) => {

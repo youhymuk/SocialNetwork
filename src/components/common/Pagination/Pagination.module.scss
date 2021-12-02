@@ -1,0 +1,18 @@
+.pagination {
+  display: flex;
+  align-items: center;
+  ul {
+    padding: 0;
+  }
+  li {
+    display: inline;
+    padding: 2px;
+    cursor: pointer;
+    &:not(:last-child) {
+      margin-right: 5px;
+    }
+  }
+}
+.active_page {
+  font-weight: bold;
+}
