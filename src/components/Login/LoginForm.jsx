@@ -3,19 +3,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 import { logIn } from '../../redux/thunks/';
-import {selectAuthError} from "../../redux/selectors/authSelectors";
+import {selectAuthCaptchaUrl, selectAuthError} from "../../redux/selectors/authSelectors";
 import LoginSchema from './schemas/LoginSchema';
 
 const initialValues = {
     email: '',
     password: '',
     remember: false,
+    captcha: null,
 };
 
 const LoginForm = () => {
     const dispatch = useDispatch();
 
     const errorMessage = useSelector(selectAuthError);
+    const captchaUrl = useSelector(selectAuthCaptchaUrl);
 
     return (
         <>
@@ -29,6 +31,7 @@ const LoginForm = () => {
                 {({ errors, dirty, isSubmitting }) => {
                     const hasFormikError = !!Object.keys(errors).filter(Boolean).length;
                     const isDisDisabledSubmit = isSubmitting || !dirty || hasFormikError || !!errorMessage;
+                    console.log('isSubmitting', isSubmitting, 'dirty', dirty, 'hasFormikError', hasFormikError, 'errorMessage', !!errorMessage, errors)
 
                     return (
                         <>
@@ -42,6 +45,13 @@ const LoginForm = () => {
                                 <ErrorMessage name="password" component="div" />
                                 <Field id="remember" name="remember" type="checkbox" />
                                 <label htmlFor="remember">Remember me</label>
+                                {!!captchaUrl && (
+                                    <>
+                                        <img src={captchaUrl} alt="Captcha image"/>
+                                        <Field id="captcha" name="captcha" type="text"/>
+                                        <label htmlFor="captcha">Enter symbols below</label>
+                                    </>
+                                )}
                                 <button type="submit" disabled={isDisDisabledSubmit}>
                                     Submit
                                 </button>

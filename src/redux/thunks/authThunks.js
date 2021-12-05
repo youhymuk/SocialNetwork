@@ -1,5 +1,5 @@
-import { authAPI } from '../../api/api';
-import { setAuthUserData, setAuthError } from '../actions';
+import {authAPI, securityAPI} from '../../api/api';
+import {setAuthUserData, setAuthError, setCaptchaUrl} from '../actions';
 
 export const getAuthUserData = () => (dispatch) => {
     return authAPI.authMe().then((data) => {
@@ -15,6 +15,10 @@ export const logIn = (credentials) => (dispatch) => {
         if (data.resultCode === 0) {
             dispatch(getAuthUserData());
         } else {
+            if(data.resultCode === 10) {
+                securityAPI.getCaptchaUrl().then((data) => dispatch(setCaptchaUrl(data.url)));
+            }
+
             const errorMessage = !!data.messages.length ? data.messages[0] : 'Invalid data';
             dispatch(setAuthError(errorMessage));
         }

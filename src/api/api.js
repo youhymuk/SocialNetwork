@@ -19,6 +19,7 @@ export const usersAPI = {
         return instance.delete(`follow/${id}`).then((response) => response.data);
     },
 };
+
 export const authAPI = {
     authMe() {
         return instance.get(`auth/me`).then((response) => response.data);
@@ -30,6 +31,7 @@ export const authAPI = {
         return instance.delete(`auth/login`).then((response) => response.data);
     },
 };
+
 export const profileAPI = {
     getUserProfile(id) {
         return instance.get(`profile/${id}`).then((response) => response.data);
@@ -39,5 +41,11 @@ export const profileAPI = {
     },
     updateUserStatus(status) {
         return instance.put(`profile/status`, { status }).then((response) => response.data);
+    },
+};
+
+export const securityAPI = {
+    getCaptchaUrl() {
+        return instance.get(`security/get-captcha-url`).then((response) => response.data);
     },
 };

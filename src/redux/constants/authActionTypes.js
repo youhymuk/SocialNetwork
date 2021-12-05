@@ -1,2 +1,3 @@
 export const SET_AUTH_USER_DATA = 'SET_AUTH_DATA';
 export const SET_AUTH_ERROR = 'SET_AUTH_ERROR';
+export const SET_CAPTCHA_URL = 'SET_CAPTCHA_URL';

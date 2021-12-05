@@ -7,3 +7,5 @@ export const selectAuthError = createSelector(authSelector, (authorization) => a
 export const selectAuthIsAuthorized = createSelector(authSelector, (authorization) => authorization.isAuthorized);
 
 export const selectAuthUserId = createSelector(authSelector, (authorization) => authorization.id);
+
+export const selectAuthCaptchaUrl = createSelector(authSelector, (authorization) => authorization.captchaUrl);
