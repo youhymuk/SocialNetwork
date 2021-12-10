@@ -1,4 +1,5 @@
-import { SET_INITIALIZED } from '../constants';
+import { AppTypes } from '../../constants';
+
 
 const initialState = {
     isInitialized: false,
@@ -6,7 +7,7 @@ const initialState = {
 
 const appReducer = (state = initialState, { type, payload = {} }) => {
     switch (type) {
-        case SET_INITIALIZED:
+        case AppTypes.SET_INITIALIZED:
             return {
                 ...state,
                 isInitialized: true,

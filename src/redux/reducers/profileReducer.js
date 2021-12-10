@@ -1,4 +1,4 @@
-import { ADD_POST, UPDATE_NEW_POST_BODY, SET_PROFILE, SET_STATUS } from '../constants';
+import { ProfileTypes } from '../../constants';
 
 const initialState = {
     posts: [
@@ -22,24 +22,24 @@ const initialState = {
 
 const profileReducer = (state = initialState, { type, payload = {} }) => {
     switch (type) {
-        case ADD_POST:
+        case ProfileTypes.ADD_POST:
             const newPost = { likesCount: 0, content: state.newPostBody };
             return {
                 ...state,
                 newPostBody: '',
                 posts: [...state.posts, newPost],
             };
-        case UPDATE_NEW_POST_BODY:
+        case ProfileTypes.UPDATE_NEW_POST_BODY:
             return {
                 ...state,
                 newPostBody: payload.body,
             };
-        case SET_PROFILE:
+        case ProfileTypes.SET_PROFILE:
             return {
                 ...state,
                 profile: payload.profile,
             };
-        case SET_STATUS:
+        case ProfileTypes.SET_STATUS:
             return {
                 ...state,
                 status: payload.status,

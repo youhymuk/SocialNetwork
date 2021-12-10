@@ -1,4 +1,4 @@
-import { FOLLOW, UNFOLLOW, SET_USERS, SET_TOTAL_USERS_COUNT, SET_CURRENT_PAGE, TOGGLE_IS_FETCHING } from '../constants';
+import { UsersTypes } from '../../constants';
 
 const initialState = {
     users: [],
@@ -10,7 +10,7 @@ const initialState = {
 
 const usersReducer = (state = initialState, { type, payload = {} }) => {
     switch (type) {
-        case FOLLOW:
+        case UsersTypes.FOLLOW:
             return {
                 ...state,
                 users: state.users.map((user) => {
@@ -20,7 +20,7 @@ const usersReducer = (state = initialState, { type, payload = {} }) => {
                     return user;
                 }),
             };
-        case UNFOLLOW:
+        case UsersTypes.UNFOLLOW:
             return {
                 ...state,
                 users: state.users.map((user) => {
@@ -30,22 +30,22 @@ const usersReducer = (state = initialState, { type, payload = {} }) => {
                     return user;
                 }),
             };
-        case SET_USERS:
+        case UsersTypes.SET_USERS:
             return {
                 ...state,
                 users: payload.users,
             };
-        case SET_TOTAL_USERS_COUNT:
+        case UsersTypes.SET_TOTAL_USERS_COUNT:
             return {
                 ...state,
                 totalUsersCount: payload.count,
             };
-        case SET_CURRENT_PAGE:
+        case UsersTypes.SET_CURRENT_PAGE:
             return {
                 ...state,
                 currentPage: payload.page,
             };
-        case TOGGLE_IS_FETCHING:
+        case UsersTypes.TOGGLE_IS_FETCHING:
             return {
                 ...state,
                 isFetching: payload.value,
