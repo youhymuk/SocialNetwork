@@ -19,3 +19,12 @@ export type UsersActionType = {
         users?: Array<UsersType>
     }
 }
+
+
+export type UsersInitialStateType = {
+    users: Array<UsersType>,
+    totalUsersCount: number,
+    currentPage: number,
+    pageSize: number,
+    isFetching: boolean,
+}

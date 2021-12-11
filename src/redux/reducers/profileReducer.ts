@@ -1,18 +1,22 @@
 import { ProfileTypes } from '../../constants';
+import {ProfileActionType, ProfileInitialStateType} from "../../types/profileTypes";
 
-const initialState = {
+const initialState: ProfileInitialStateType = {
     posts: [
         {
+            id: 1,
             likesCount: 1,
-            content: 'Heeeey!',
+            messageBody: 'Heeeey!',
         },
         {
+            id: 2,
             likesCount: 2,
-            content: 'How are you?',
+            messageBody: 'How are you?',
         },
         {
+            id: 3,
             likesCount: 3,
-            content: `What's up!`,
+            messageBody: `What's up!`,
         },
     ],
     newPostBody: '',
@@ -20,10 +24,10 @@ const initialState = {
     status: '',
 };
 
-const profileReducer = (state = initialState, { type, payload = {} }) => {
+const profileReducer = (state = initialState, { type, payload = {} }: ProfileActionType) => {
     switch (type) {
         case ProfileTypes.ADD_POST:
-            const newPost = { likesCount: 0, content: state.newPostBody };
+            const newPost = { likesCount: 0, messageBody: state.newPostBody };
             return {
                 ...state,
                 newPostBody: '',

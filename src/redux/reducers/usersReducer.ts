@@ -1,6 +1,7 @@
 import { UsersTypes } from '../../constants';
+import {UsersActionType, UsersInitialStateType} from "../../types/usersTypes";
 
-const initialState = {
+const initialState: UsersInitialStateType = {
     users: [],
     totalUsersCount: 0,
     currentPage: 1,
@@ -8,7 +9,7 @@ const initialState = {
     isFetching: false,
 };
 
-const usersReducer = (state = initialState, { type, payload = {} }) => {
+const usersReducer = (state = initialState, { type, payload = {} }: UsersActionType) => {
     switch (type) {
         case UsersTypes.FOLLOW:
             return {

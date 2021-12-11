@@ -4,3 +4,7 @@ export type AppActionType = {
         isInitialized?: boolean,
     }
 }
+
+export type AppInitialStateType = {
+    isInitialized: boolean,
+}

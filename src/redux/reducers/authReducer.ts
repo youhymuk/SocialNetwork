@@ -1,6 +1,7 @@
 import { AuthTypes } from '../../constants';
+import {AuthActionType, AuthinitialStateType} from "../../types/authTypes";
 
-const initialState = {
+const initialState: AuthinitialStateType = {
     id: null,
     email: null,
     login: null,
@@ -9,7 +10,7 @@ const initialState = {
     captchaUrl: null,
 };
 
-const authReducer = (state = initialState, { type, payload = {} }) => {
+const authReducer = (state = initialState, { type, payload = {} }: AuthActionType) => {
     switch (type) {
         case AuthTypes.SET_AUTH_USER_DATA:
         case AuthTypes.SET_AUTH_ERROR:

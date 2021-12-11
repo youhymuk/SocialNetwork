@@ -1,6 +1,7 @@
 import { DialogsTypes } from '../../constants';
+import {DialogsActionType, DialogsInitialStateType} from "../../types/dialogsTypes";
 
-const initialState = {
+const initialState: DialogsInitialStateType = {
     messages: [
         {
             id: 1,
@@ -26,8 +27,8 @@ const initialState = {
     newMessageBody: '',
 };
 
-const dialogReducer = (state = initialState, action) => {
-    switch (action.type) {
+const dialogReducer = (state = initialState, { type, payload = {}}: DialogsActionType) => {
+    switch (type) {
         case DialogsTypes.ADD_MESSAGE:
             const newMessage = state.newMessageBody;
             return {
@@ -37,7 +38,7 @@ const dialogReducer = (state = initialState, action) => {
         case DialogsTypes.UPDATE_NEW_MESSAGE_BODY:
             return {
                 ...state,
-                newMessageBody: action.body,
+                newMessageBody: payload.body,
             };
         default:
             return state;

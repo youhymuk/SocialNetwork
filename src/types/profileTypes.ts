@@ -1,3 +1,5 @@
+import {MessageType} from "./MessageType";
+
 export type ProfileType = {
     userId: number,
     lookingForAJob: boolean,
@@ -25,4 +27,11 @@ export type ProfileActionType = {
         status?: string,
         body?: string,
     }
+}
+
+export type ProfileInitialStateType = {
+    profile: ProfileType | null,
+    status: string,
+    newPostBody: string,
+    posts: Array<MessageType>
 }
